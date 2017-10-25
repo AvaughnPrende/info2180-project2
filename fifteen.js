@@ -6,6 +6,7 @@ function locateTile(){}
 function puzzlePieceLocation(){}
 function changePuzzlePieceLocation(){}
 function adjacentLocations(){}
+function movablePiece(){}
 let occupiedLocations;
 emptyTileLocation = []
 let temp;
@@ -44,9 +45,12 @@ $(document).ready(function(){
 		puzzlePieces[i].style.backgroundPosition = `${-100*(i%4)}px -300px`
 	}
 	for(i=0;i<puzzlePieces.length;i++){
-		puzzlePieces[i].addEventListener("click", moveToEmptyTile(this));
+		puzzlePieces[i].addEventListener('mouseover',function(){
+			if(movablePiece(this)){
+				this.classList.add("movablepiece");
+			}
+		})
 	}
-
 
 	puzzlePieceLocation = function(puzzlepiece){
 		return [parseInt(puzzlepiece.style.left),parseInt(puzzlepiece.style.top)]
@@ -105,16 +109,17 @@ $(document).ready(function(){
 		if(left1 === left2 && top1 === top2 - 100){
 			return true;
 		}
-		if(top1 === top2 && left1 === left2 - 100){
+		if(top1   === top2 && left1 === left2 - 100){
 			return true;
 		}
-		if(top1 === top2 && left1 === left2 + 100){
+		if(top1   === top2 && left1 === left2 + 100){
 			return true;
 		}
 		return false;
 	}
 
-
-
+	movablePiece = function(puzzlepiece){
+		return adjacentLocations(puzzlePieceLocation(puzzlepiece),locateEmptyTile())
+	}
 })
 
