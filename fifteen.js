@@ -57,10 +57,6 @@ $(document).ready(function(){
 		puzzlepiece.style.top  = `${top}px`;
 	}
 
-	updatePuzzlePieceLocations = function(){
-
-	}
-
 	equalArrays = function(array1,array2){
 		return array1[0]===array2[0] && array1[1]===array2[1]
 	}
@@ -84,14 +80,6 @@ $(document).ready(function(){
     		}
 		})
 		return emptyTile;
-	}
-
-	locateTile = function(left, top){
-		for (i=0;i<occupiedLocations.length;i++){
-			if(equalArrays(puzzlePieces[i],[left,top])){
-				return allLocations[i];
-			}
-		}
 	}
 
 	moveToEmptyTile = function (puzzlepiece){
@@ -125,6 +113,8 @@ $(document).ready(function(){
 		}
 		return false;
 	}
+
+
 
 })
 
