@@ -51,6 +51,13 @@ $(document).ready(function(){
 			}
 		})
 	}
+	for(i=0;i<puzzlePieces.length;i++){
+		puzzlePieces[i].addEventListener("click", function(){
+			if(movablePiece(this)){
+				moveToEmptyTile(this);
+			}
+		})
+	}
 
 	puzzlePieceLocation = function(puzzlepiece){
 		return [parseInt(puzzlepiece.style.left),parseInt(puzzlepiece.style.top)]
