@@ -5,6 +5,7 @@ function moveToEmptyTile(){}
 function locateTile(){}
 function puzzlePieceLocation(){}
 function changePuzzlePieceLocation(){}
+function adjacentLocations(){}
 let occupiedLocations;
 emptyTileLocation = []
 let temp;
@@ -94,7 +95,6 @@ $(document).ready(function(){
 	}
 
 	moveToEmptyTile = function (puzzlepiece){
-		//let temp;
 		let pieceLocation;
 
 		emptyTileLocation = locateEmptyTile();
@@ -105,6 +105,25 @@ $(document).ready(function(){
 		pieceLocation     = temp;
 
 		changePuzzlePieceLocation(puzzlepiece, pieceLocation[0],pieceLocation[1]);
+	}
+
+	adjacentLocations = function(location1, location2){
+		[left1,top1]  = location1;
+		[left2,top2]  = location2;
+
+		if(left1 === left2 && top1 === top2 + 100){
+			return true;
+		}
+		if(left1 === left2 && top1 === top2 - 100){
+			return true;
+		}
+		if(top1 === top2 && left1 === left2 - 100){
+			return true;
+		}
+		if(top1 === top2 && left1 === left2 + 100){
+			return true;
+		}
+		return false;
 	}
 
 })
