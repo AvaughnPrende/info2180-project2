@@ -3,12 +3,15 @@ function equalArrays(){}
 function containsElement(){} 
 function moveToEmptyTile(){}
 function locateTile(){}
-let occupiedLocations
+function puzzlePieceLocation(){}
+function changePuzzlePieceLocation(){}
+let occupiedLocations;
+emptyTileLocation = []
+let temp;
 
 $(document).ready(function(){
-
+	occupiedLocations = []
 	allLocations      = []
-	empttTileLocation = []
 	puzzlePieces      = Array.from($("#puzzlearea").children());
 
 	for(i=0;i<4;i++){
@@ -39,11 +42,23 @@ $(document).ready(function(){
 		puzzlePieces[i].style.left               = `${100*(i%4)}px`;
 		puzzlePieces[i].style.backgroundPosition = `${-100*(i%4)}px -300px`
 	}
+	for(i=0;i<puzzlePieces.length;i++){
+		puzzlePieces[i].addEventListener("click", moveToEmptyTile(this));
+	}
 
-	function puzzlePieceLocation(puzzlepiece){
+
+	puzzlePieceLocation = function(puzzlepiece){
 		return [parseInt(puzzlepiece.style.left),parseInt(puzzlepiece.style.top)]
 	}
 
+	changePuzzlePieceLocation  = function (puzzlepiece, left, top){
+		puzzlepiece.style.left = `${left}px`;
+		puzzlepiece.style.top  = `${top}px`;
+	}
+
+	updatePuzzlePieceLocations = function(){
+
+	}
 
 	equalArrays = function(array1,array2){
 		return array1[0]===array2[0] && array1[1]===array2[1]
@@ -58,36 +73,39 @@ $(document).ready(function(){
 	}
 
 	locateEmptyTile = function(){
+		let emptyTile;
 		occupiedLocations = puzzlePieces.map(function(puzzlepiece){
 			return puzzlePieceLocation(puzzlepiece);
 		})
-		for(i=0;i<allLocations.length;i++){
-			if(!containsElement(occupiedLocations,allLocations[i])){
-				return allLocations[i];
-			}
-		}
+		allLocations.forEach(function(location){
+    		if(!(containsElement(occupiedLocations,location))){
+    			emptyTile = location;
+    		}
+		})
+		return emptyTile;
 	}
 
 	locateTile = function(left, top){
 		for (i=0;i<occupiedLocations.length;i++){
-			if(equalArrays(allLocations[i],[left,top])){
+			if(equalArrays(puzzlePieces[i],[left,top])){
 				return allLocations[i];
 			}
 		}
 	}
 
 	moveToEmptyTile = function (puzzlepiece){
-		empttTileLocation = locateEmptyTile();
-		pieceLocation = puzzlePieceLocation(puzzlepiece);
-		
+		//let temp;
+		let pieceLocation;
 
+		emptyTileLocation = locateEmptyTile();
+		pieceLocation     = puzzlePieceLocation(puzzlepiece);	
+		//Swap location of empty tile and moving tile
+		temp              = emptyTileLocation;
+		emptyTileLocation = pieceLocation;
+		pieceLocation     = temp;
+
+		changePuzzlePieceLocation(puzzlepiece, pieceLocation[0],pieceLocation[1]);
 	}
-
-
-
-	
-
-
 
 })
 
