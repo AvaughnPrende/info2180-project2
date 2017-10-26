@@ -1,17 +1,5 @@
-/*
-function locateEmptyTile(){}
-function equalArrays(){}
-function containsElement(){} 
-function moveToEmptyTile(){}
-function locateTile(){}
-function puzzlePieceLocation(){}
-function changePuzzlePieceLocation(){}
-function adjacentLocations(){}
+let neighbours = [];
 function movablePiece(){}
-let occupiedLocations;
-emptyTileLocation = []
-let temp;
-*/
 $(document).ready(function(){
 	occupiedLocations = []
 	allLocations      = []
@@ -62,21 +50,23 @@ $(document).ready(function(){
 		}
 	})	
 
+	$("#shufflebutton").click(shuffle);
 
-	puzzlePieceLocation = function(puzzlepiece){
+
+	function puzzlePieceLocation(puzzlepiece){
 		return [parseInt(puzzlepiece.style.left),parseInt(puzzlepiece.style.top)]
 	}
 
-	changePuzzlePieceLocation  = function (puzzlepiece, left, top){
+	function changePuzzlePieceLocation(puzzlepiece, left, top){
 		puzzlepiece.style.left = `${left}px`;
 		puzzlepiece.style.top  = `${top}px`;
 	}
 
-	equalArrays = function(array1,array2){
+	function equalArrays(array1,array2){
 		return array1[0]===array2[0] && array1[1]===array2[1]
 	}
 
-	containsElement = function (array, element){
+	function containsElement(array, element){
 		for(i=0;i<array.length;i++){
 			if (equalArrays(array[i],element)){
 				return true;
@@ -84,7 +74,7 @@ $(document).ready(function(){
 		}return false;
 	}
 
-	locateEmptyTile = function(){
+	function locateEmptyTile() {
 		let emptyTile;
 		occupiedLocations = puzzlePieces.map(function(puzzlepiece){
 			return puzzlePieceLocation(puzzlepiece);
@@ -97,7 +87,7 @@ $(document).ready(function(){
 		return emptyTile;
 	}
 
-	moveToEmptyTile = function (puzzlepiece){
+	function moveToEmptyTile(puzzlepiece){
 		let pieceLocation;
 
 		emptyTileLocation = locateEmptyTile();
@@ -110,7 +100,7 @@ $(document).ready(function(){
 		changePuzzlePieceLocation(puzzlepiece, pieceLocation[0],pieceLocation[1]);
 	}
 
-	adjacentLocations = function(location1, location2){
+	function adjacentLocations(location1, location2){
 		[left1,top1]  = location1;
 		[left2,top2]  = location2;
 
@@ -129,10 +119,18 @@ $(document).ready(function(){
 		return false;
 	}
 
-	movablePiece = function(puzzlepiece){
+	 movablePiece  = function(puzzlepiece){
 		return adjacentLocations(puzzlePieceLocation(puzzlepiece),locateEmptyTile())
 	}
 
-
+	function shuffle(){
+		[...Array(75).keys()].forEach(function(){
+			neighbours = puzzlePieces.filter(function(puzzlepiece){
+			return movablePiece(puzzlepiece);
+		})
+			randomPuzzlePiece = neighbours[Math.floor(Math.random() * (neighbours.length))]
+			moveToEmptyTile(randomPuzzlePiece);
+		})
+	}
 })
 
