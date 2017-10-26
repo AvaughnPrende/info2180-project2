@@ -44,20 +44,23 @@ $(document).ready(function(){
 		puzzlePieces[i].style.left               = `${100*(i%4)}px`;
 		puzzlePieces[i].style.backgroundPosition = `${-100*(i%4)}px -300px`
 	}
-	for(i=0;i<puzzlePieces.length;i++){
-		puzzlePieces[i].addEventListener('mouseover',function(){
+
+	$(".puzzlepiece").hover(
+		function(){
 			if(movablePiece(this)){
-				this.classList.add("movablepiece");
+				$(this).addClass("movablepiece");
 			}
+		},
+		function(){
+			$(this).removeClass("movablepiece");
 		})
-	}
-	for(i=0;i<puzzlePieces.length;i++){
-		puzzlePieces[i].addEventListener("click", function(){
-			if(movablePiece(this)){
-				moveToEmptyTile(this);
-			}
-		})
-	}
+
+	$(".puzzlepiece").click(function(){
+		if(movablePiece(this)){
+			moveToEmptyTile(this);
+		}
+	})	
+
 
 	puzzlePieceLocation = function(puzzlepiece){
 		return [parseInt(puzzlepiece.style.left),parseInt(puzzlepiece.style.top)]
@@ -128,5 +131,7 @@ $(document).ready(function(){
 	movablePiece = function(puzzlepiece){
 		return adjacentLocations(puzzlePieceLocation(puzzlepiece),locateEmptyTile())
 	}
+
+
 })
 
