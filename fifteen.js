@@ -1,3 +1,4 @@
+/*
 function locateEmptyTile(){}
 function equalArrays(){}
 function containsElement(){} 
@@ -10,7 +11,7 @@ function movablePiece(){}
 let occupiedLocations;
 emptyTileLocation = []
 let temp;
-
+*/
 $(document).ready(function(){
 	occupiedLocations = []
 	allLocations      = []
