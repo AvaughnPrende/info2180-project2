@@ -124,13 +124,16 @@ $(document).ready(function(){
 	}
 
 	function shuffle(){
-		[...Array(75).keys()].forEach(function(){
+		t0  = performance.now();
+		[...Array(150).keys()].forEach(function(){
 			neighbours = puzzlePieces.filter(function(puzzlepiece){
 			return movablePiece(puzzlepiece);
 		})
 			randomPuzzlePiece = neighbours[Math.floor(Math.random() * (neighbours.length))]
 			moveToEmptyTile(randomPuzzlePiece);
 		})
+		t1 = performance.now();
+		console.log(`Duration: ${t1-t0}`);
 	}
 })
 
