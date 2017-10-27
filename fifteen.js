@@ -1,6 +1,3 @@
-let images = [];
-let changeBackground;
-let animateBorder;
 $(document).ready(function(){
 
 	let menu    = $("<div></div>");
@@ -55,8 +52,8 @@ $(document).ready(function(){
 
 	let occupiedLocations = []
 	let allLocations      = []
+	let images            = [luffy,sanji,zoro,chopper];
 	let puzzlePieces      = Array.from($("#puzzlearea").children());
-	images = [luffy,sanji,zoro,chopper];
 
 	
 	images.forEach(function(img){
@@ -110,16 +107,6 @@ $(document).ready(function(){
 	})	
 
 	$("#shufflebutton").click(shuffle);
-
-	$("<style></style>")
-		.prop("type", "text/css")
-		.html("\
-			.purpleborder {\
-				border : 3px black;\
-				height: 95px;\
-   				width: 95px;\
-			}")
-		.appendTo("head")
 
 	function puzzlePieceLocation(puzzlepiece){
 		return [parseInt(puzzlepiece.style.left),parseInt(puzzlepiece.style.top)]
@@ -217,18 +204,6 @@ $(document).ready(function(){
 			puzzlepiece.style.backgroundImage = "url('" +  img.name + "')";
 		})
 	}
-
-	$("img").hover(
-
-		function(){
-			interval = setInterval(function(){
-				$("img").toggleClass('purpleborder');
-			},1000);
-		},
-		function(){
-			clearInterval(interval);
-			$("img").removeClass('purpleborder');
-		});
 	
 	selectRandomBackground();
 })
