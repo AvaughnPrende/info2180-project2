@@ -1,9 +1,58 @@
-let neighbours = [];
-function movablePiece(){}
 $(document).ready(function(){
-	occupiedLocations = []
-	allLocations      = []
-	puzzlePieces      = Array.from($("#puzzlearea").children());
+
+	menu    = $("<div></div>");
+	title   = $("<div>Change Character</div>");
+	luffy   = $("<img src ='background.jpg' height=95px width=95px)></img>");
+	zoro    = $("<img src ='zoro.jpg' height=95px width=95px)></img>");
+	sanji   = $("<img src ='sanji.jpg' height=95px width=95px)></img>");
+	chopper = $("<img src ='chopper.jpg' height=95px width=95px)></img>");
+	
+	menu.append(title);
+	menu.append(luffy);
+	menu.append(zoro);
+	menu.append(sanji);
+	menu.append(chopper);
+
+	menu.css({
+		"width": "210px",
+		"height": "210px",
+		"position": "absolute",
+		"top": "200px",
+		"left" : "1050px",
+	})
+
+	title.css({
+		"background-color": "#9370DB",
+		"width": "196px",
+		"font-size" : "1.5em",
+		"text-align": "center",
+		"color": "white"
+	})
+
+	zoro.css({
+		"margin": "2px",
+		"margin-bottom": "1.0px"
+	})
+
+	sanji.css({
+		"margin": "2px"
+	})
+
+	chopper.css({
+		"margin": "2px"
+	})
+
+	luffy.css({
+		"margin": "2px",
+		"margin-bottom": "1.0px"
+	})
+
+	$('body').append(menu);
+
+	let occupiedLocations = []
+	let allLocations      = []
+	let puzzlePieces      = Array.from($("#puzzlearea").children());
+	let images            = [luffy,zoro,sanji,chopper];
 
 	for(i=0;i<4;i++){
 			for (j=0;j<4;j++){
@@ -119,13 +168,13 @@ $(document).ready(function(){
 		return false;
 	}
 
-	 movablePiece  = function(puzzlepiece){
+	function movablePiece(puzzlepiece){
 		return adjacentLocations(puzzlePieceLocation(puzzlepiece),locateEmptyTile())
 	}
 
 	function shuffle(){
 		t0  = performance.now();
-		[...Array(150).keys()].forEach(function(){
+		[...Array(153).keys()].forEach(function(){
 			neighbours = puzzlePieces.filter(function(puzzlepiece){
 			return movablePiece(puzzlepiece);
 		})
@@ -133,7 +182,7 @@ $(document).ready(function(){
 			moveToEmptyTile(randomPuzzlePiece);
 		})
 		t1 = performance.now();
-		console.log(`Duration: ${t1-t0}`);
+		//console.log(`Duration: ${t1-t0} milliseconds`);
 	}
 })
 
