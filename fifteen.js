@@ -1,11 +1,13 @@
+let images = [];
 $(document).ready(function(){
 
-	menu    = $("<div></div>");
-	title   = $("<div>Change Character</div>");
-	luffy   = $("<img src ='background.jpg' height=95px width=95px)></img>");
-	zoro    = $("<img src ='zoro.jpg' height=95px width=95px)></img>");
-	sanji   = $("<img src ='sanji.jpg' height=95px width=95px)></img>");
-	chopper = $("<img src ='chopper.jpg' height=95px width=95px)></img>");
+	let menu    = $("<div></div>");
+	let title   = $("<div>Change Character</div>");
+	let luffy   = $("<img name = 'background.jpg' src ='background.jpg' height=95px width=95px)></img>");
+	let zoro    = $("<img name = 'zoro.jpg'       src ='zoro.jpg'       height=95px width=95px)></img>");
+	let sanji   = $("<img name = 'sanji.jpg'      src ='sanji.jpg'      height=95px width=95px)></img>");
+	let chopper = $("<img name = 'chopper.jpg'    src ='chopper.jpg'    height=95px width=95px)></img>");
+
 	
 	menu.append(title);
 	menu.append(luffy);
@@ -46,13 +48,12 @@ $(document).ready(function(){
 		"margin": "2px",
 		"margin-bottom": "1.0px"
 	})
-
 	$('body').append(menu);
 
 	let occupiedLocations = []
 	let allLocations      = []
 	let puzzlePieces      = Array.from($("#puzzlearea").children());
-	let images            = [luffy,zoro,sanji,chopper];
+	images = [luffy,sanji,zoro,chopper];
 
 	for(i=0;i<4;i++){
 			for (j=0;j<4;j++){
@@ -173,16 +174,25 @@ $(document).ready(function(){
 	}
 
 	function shuffle(){
-		t0  = performance.now();
-		[...Array(153).keys()].forEach(function(){
+		[...Array(160).keys()].forEach(function(){
 			neighbours = puzzlePieces.filter(function(puzzlepiece){
 			return movablePiece(puzzlepiece);
 		})
 			randomPuzzlePiece = neighbours[Math.floor(Math.random() * (neighbours.length))]
 			moveToEmptyTile(randomPuzzlePiece);
 		})
-		t1 = performance.now();
-		//console.log(`Duration: ${t1-t0} milliseconds`);
 	}
+
+	function changeImage(img){
+		$("#puzzlepiece").backgroundImage = img;
+	}
+
+	function selectRandomBackground(){
+		r = Math.floor(Math.random()*images.length)
+		puzzlePieces.forEach(function(puzzlepiece){
+			puzzlepiece.style.backgroundImage = "url('" +  images[r][0].name + "')";
+		})
+	}
+
 })
 
