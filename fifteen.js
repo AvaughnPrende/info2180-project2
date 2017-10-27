@@ -1,8 +1,10 @@
 let images = [];
+let changeBackground;
+let animateBorder;
 $(document).ready(function(){
 
 	let menu    = $("<div></div>");
-	let title   = $("<div>Change Character</div>");
+	let title   = $("<div>Click Character to Change background Image</div>");
 	let luffy   = $("<img name = 'background.jpg' src ='background.jpg' height=95px width=95px)></img>");
 	let zoro    = $("<img name = 'zoro.jpg'       src ='zoro.jpg'       height=95px width=95px)></img>");
 	let sanji   = $("<img name = 'sanji.jpg'      src ='sanji.jpg'      height=95px width=95px)></img>");
@@ -16,8 +18,8 @@ $(document).ready(function(){
 	menu.append(chopper);
 
 	menu.css({
-		"width": "210px",
-		"height": "210px",
+		"width": "220px",
+		"height": "220px",
 		"position": "absolute",
 		"top": "200px",
 		"left" : "1050px",
@@ -26,9 +28,10 @@ $(document).ready(function(){
 	title.css({
 		"background-color": "#9370DB",
 		"width": "196px",
-		"font-size" : "1.5em",
+		"font-size" : "1.25em",
 		"text-align": "center",
-		"color": "white"
+		"color": "white",
+		"border": "1.5px solid #9370DB"
 	})
 
 	zoro.css({
@@ -55,6 +58,12 @@ $(document).ready(function(){
 	let puzzlePieces      = Array.from($("#puzzlearea").children());
 	images = [luffy,sanji,zoro,chopper];
 
+	
+	images.forEach(function(img){
+		img[0].addEventListener("click",function(){
+			changeBackground(img[0]);
+		})
+	})
 	for(i=0;i<4;i++){
 			for (j=0;j<4;j++){
 				allLocations.push([i*100,j*100]);
@@ -102,6 +111,15 @@ $(document).ready(function(){
 
 	$("#shufflebutton").click(shuffle);
 
+	$("<style></style>")
+		.prop("type", "text/css")
+		.html("\
+			.purpleborder {\
+				border : 3px black;\
+				height: 95px;\
+   				width: 95px;\
+			}")
+		.appendTo("head")
 
 	function puzzlePieceLocation(puzzlepiece){
 		return [parseInt(puzzlepiece.style.left),parseInt(puzzlepiece.style.top)]
@@ -194,5 +212,24 @@ $(document).ready(function(){
 		})
 	}
 
+	function changeBackground(img){
+		puzzlePieces.forEach(function(puzzlepiece){
+			puzzlepiece.style.backgroundImage = "url('" +  img.name + "')";
+		})
+	}
+
+	$("img").hover(
+
+		function(){
+			interval = setInterval(function(){
+				$("img").toggleClass('purpleborder');
+			},1000);
+		},
+		function(){
+			clearInterval(interval);
+			$("img").removeClass('purpleborder');
+		});
+	
+	selectRandomBackground();
 })
 
