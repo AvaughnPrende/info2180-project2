@@ -1,11 +1,11 @@
 $(document).ready(function(){
 
-	let menu    = $("<div></div>");
-	let title   = $("<div>Click Character to Change background Image</div>");
-	let luffy   = $("<img name = 'background.jpg' src ='background.jpg' height=95px width=95px)><img>");
-	let zoro    = $("<img name = 'zoro.jpg'       src ='zoro.jpg'       height=95px width=95px)><img>");
-	let sanji   = $("<img name = 'sanji.jpg'      src ='sanji.jpg'      height=95px width=95px)><img>");
-	let chopper = $("<img name = 'chopper.jpg'    src ='chopper.jpg'    height=95px width=95px)><img>");
+	menu    = $("<div></div>");
+	title   = $("<div>Click Character to Change background Image</div>");
+	luffy   = $("<img name = 'background.jpg' src ='background.jpg' height=95px width=95px)><img>");
+	zoro    = $("<img name = 'zoro.jpg'       src ='zoro.jpg'       height=95px width=95px)><img>");
+	sanji   = $("<img name = 'sanji.jpg'      src ='sanji.jpg'      height=95px width=95px)><img>");
+	chopper = $("<img name = 'chopper.jpg'    src ='chopper.jpg'    height=95px width=95px)><img>");
 
 	
 	menu.append(title);
@@ -19,8 +19,8 @@ $(document).ready(function(){
 		"height": "220px",
 		"position": "absolute",
 		"top": "200px",
-		"left" : "1050px",
-	})
+		"left" : "1050px"
+	});
 
 	title.css({
 		"background-color": "#9370DB",
@@ -29,38 +29,39 @@ $(document).ready(function(){
 		"text-align": "center",
 		"color": "white",
 		"border": "1.5px solid #9370DB"
-	})
+	});
 
 	zoro.css({
 		"margin": "2px",
 		"margin-bottom": "1.0px"
-	})
+	});
 
 	sanji.css({
 		"margin": "2px"
-	})
+	});
 
 	chopper.css({
 		"margin": "2px"
-	})
+	});
 
 	luffy.css({
 		"margin": "2px",
 		"margin-bottom": "1.0px"
-	})
+	});
+
 	$('body').append(menu);
 
-	let occupiedLocations = []
-	let allLocations      = []
-	let images            = [luffy,sanji,zoro,chopper];
-	let puzzlePieces      = Array.from($("#puzzlearea").children());
+	occupiedLocations = [];
+	allLocations      = [];
+	images            = [luffy,sanji,zoro,chopper];
+	puzzlePieces      = Array.from($("#puzzlearea").children());
 
 	
 	images.forEach(function(img){
 		img[0].addEventListener("click",function(){
 			changeBackground(img[0]);
-		})
-	})
+		});
+	});
 	for(i=0;i<4;i++){
 			for (j=0;j<4;j++){
 				allLocations.push([i*100,j*100]);
@@ -98,18 +99,18 @@ $(document).ready(function(){
 		},
 		function(){
 			$(this).removeClass("movablepiece");
-		})
+		});
 
 	$(".puzzlepiece").click(function(){
 		if(movablePiece(this)){
 			moveToEmptyTile(this);
 		}
-	})	
+	});	
 
 	$("#shufflebutton").click(shuffle);
 
 	function puzzlePieceLocation(puzzlepiece){
-		return [parseInt(puzzlepiece.style.left),parseInt(puzzlepiece.style.top)]
+		return [parseInt(puzzlepiece.style.left),parseInt(puzzlepiece.style.top)];
 	}
 
 	function changePuzzlePieceLocation(puzzlepiece, left, top){
