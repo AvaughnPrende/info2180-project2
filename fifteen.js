@@ -2,10 +2,10 @@ $(document).ready(function(){
 
 	let menu    = $("<div></div>");
 	let title   = $("<div>Click Character to Change background Image</div>");
-	let luffy   = $("<img name = 'background.jpg' src ='background.jpg' height=95px width=95px)></img>");
-	let zoro    = $("<img name = 'zoro.jpg'       src ='zoro.jpg'       height=95px width=95px)></img>");
-	let sanji   = $("<img name = 'sanji.jpg'      src ='sanji.jpg'      height=95px width=95px)></img>");
-	let chopper = $("<img name = 'chopper.jpg'    src ='chopper.jpg'    height=95px width=95px)></img>");
+	let luffy   = $("<img name = 'background.jpg' src ='background.jpg' height=95px width=95px)><img>");
+	let zoro    = $("<img name = 'zoro.jpg'       src ='zoro.jpg'       height=95px width=95px)><img>");
+	let sanji   = $("<img name = 'sanji.jpg'      src ='sanji.jpg'      height=95px width=95px)><img>");
+	let chopper = $("<img name = 'chopper.jpg'    src ='chopper.jpg'    height=95px width=95px)><img>");
 
 	
 	menu.append(title);
@@ -204,7 +204,7 @@ $(document).ready(function(){
 			puzzlepiece.style.backgroundImage = "url('" +  img.name + "')";
 		})
 	}
-	
+
 	selectRandomBackground();
 })
 
