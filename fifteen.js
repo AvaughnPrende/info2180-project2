@@ -1,3 +1,4 @@
+//Bonus Implemented: Random background image appears on startup and the option to change background image
 $(document).ready(function(){
 
 	menu    = $("<div></div>");
@@ -7,13 +8,14 @@ $(document).ready(function(){
 	sanji   = $("<img name = 'sanji.jpg'      src ='sanji.jpg'      height=95px width=95px)><img>");
 	chopper = $("<img name = 'chopper.jpg'    src ='chopper.jpg'    height=95px width=95px)><img>");
 
-	
+	//Add images to the GUI
 	menu.append(title);
 	menu.append(luffy);
 	menu.append(zoro);
 	menu.append(sanji);
 	menu.append(chopper);
-
+	
+	//Style images and GUI to change images
 	menu.css({
 		"width": "220px",
 		"height": "220px",
@@ -63,13 +65,15 @@ $(document).ready(function(){
 		});
 	});
 	for(i=0;i<4;i++){
-			for (j=0;j<4;j++){
-				allLocations.push([i*100,j*100]);
+		for (j=0;j<4;j++){
+			allLocations.push([i*100,j*100]);
 		}
 	}
 	for (i=0;i<puzzlePieces.length;i++){
 		puzzlePieces[i].classList.add("puzzlepiece");
 	}
+	
+	//Set background position of image
 	for (i=0;i<4;i++){
 		puzzlePieces[i].style.top                = "0px";
 		puzzlePieces[i].style.left               = `${100*i}px`;
@@ -90,7 +94,8 @@ $(document).ready(function(){
 		puzzlePieces[i].style.left               = `${100*(i%4)}px`;
 		puzzlePieces[i].style.backgroundPosition = `${-100*(i%4)}px -300px`
 	}
-
+	
+	//Cahnge color of puzzle piece when hovered over if it can be moved.
 	$(".puzzlepiece").hover(
 		function(){
 			if(movablePiece(this)){
@@ -206,6 +211,6 @@ $(document).ready(function(){
 		})
 	}
 
-	selectRandomBackground();
+	selectRandomBackground();//Get random background on startup
 })
 
